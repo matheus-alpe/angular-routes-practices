@@ -1,1 +1,7 @@
 <p>users works!</p>
+
+<ul>
+  @for (n of [1, 2, 3]; track n) {
+    <li>User {{ n }}, <a [routerLink]="['/users', n]" class="btn btn-link">Profile</a></li>
+  }
+</ul>

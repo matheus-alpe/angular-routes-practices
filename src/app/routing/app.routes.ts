@@ -8,10 +8,6 @@ export const routes: Routes = [
     title: 'Home',
     loadComponent: () => import('./home/home'),
   },
-  {
-    path: 'home',
-    redirectTo: '',
-  },
   ...USERS_ROUTES,
   ...PRODUCTS_ROUTES,
   {

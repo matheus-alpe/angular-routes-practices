@@ -1,11 +1,18 @@
 <div class="navbar bg-base-100 shadow-sm">
   <ul class="menu menu-horizontal bg-base-200">
     @for (route of routes; track route.path) {
-      @if (route.path !== '') {
-        <li>
-          <a [routerLink]="route.path">{{ route.path }}</a>
-        </li>
-      }
+      <li>
+        <a
+          [routerLink]="route.path"
+          routerLinkActive="active-button"
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{
+            exact: true,
+          }"
+        >
+          {{ route.path || 'home' }}
+        </a>
+      </li>
     }
   </ul>
 </div>

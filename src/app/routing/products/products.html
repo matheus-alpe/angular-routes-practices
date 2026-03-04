@@ -2,6 +2,6 @@
 
 <ul>
   @for (n of [1, 2, 3]; track n) {
-    <li>Product {{ n }}, <a routerLink="/products/{{ n }}" class="btn btn-link">Details</a></li>
+    <li>Product {{ n }}, <a [routerLink]="['/products', n]" class="btn btn-link">Details</a></li>
   }
 </ul>
