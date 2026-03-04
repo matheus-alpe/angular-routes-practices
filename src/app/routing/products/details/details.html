@@ -1,0 +1,12 @@
+<a routerLink="/products" class="btn btn-ghost">Back to Products</a>
+
+<article class="bg-base-200 p-2 rounded-lg">
+  <p>details works!</p>
+
+  <a routerLink="info" class="btn btn-ghost">Info</a>
+  <a routerLink="reviews" class="btn btn-ghost">Reviews</a>
+
+  <router-outlet></router-outlet>
+  <a [routerLink]="[{ outlets: { footer: ['price'] } }]" class="btn btn-ghost">Price</a>
+  <router-outlet name="footer"></router-outlet>
+</article>

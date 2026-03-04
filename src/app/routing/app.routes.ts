@@ -1,24 +1,22 @@
 import { Routes } from '@angular/router';
+import { PRODUCTS_ROUTES } from './products/products.routes';
+import { USERS_ROUTES } from './users/users.routes';
 
 export const routes: Routes = [
   {
     path: '',
     title: 'Home',
-    loadComponent: () => import('./home/home').then((m) => m.Home),
+    loadComponent: () => import('./home/home'),
   },
   {
     path: 'home',
     redirectTo: '',
   },
-  {
-    path: 'users/:id',
-    title: (route) => `User ${route.params['id']}`,
-    loadComponent: () => import('./users/users').then((m) => m.Users),
-    data: { requiresAuth: true },
-  },
+  ...USERS_ROUTES,
+  ...PRODUCTS_ROUTES,
   {
     path: '**',
     title: 'Not Found',
-    loadComponent: () => import('./not-found/not-found').then((m) => m.NotFound),
+    loadComponent: () => import('./not-found/not-found'),
   },
 ];
