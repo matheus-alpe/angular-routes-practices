@@ -5,10 +5,12 @@ import {
   RouterLinkActive,
   NavigationError,
   Router,
+  NavigationStart,
+  NavigationEnd,
 } from '@angular/router';
 import { routes } from './routing/app.routes';
 import { JsonPipe } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
 export interface OutletConfig {
@@ -45,6 +47,20 @@ export class App {
   );
   isNavigating = computed(() => !!this.router.currentNavigation());
   errorMessage = this.navigationErrors;
+
+  constructor() {
+    this.router.events.pipe(takeUntilDestroyed()).subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.trackPageView(event.url);
+      }
+    });
+  }
+
+  private trackPageView(url: string) {
+    console.log('Tracking page view for:', url);
+    // Here you would integrate with your analytics service, e.g.:
+    // analyticsService.trackPageView(url);
+  }
 
   retryNavigation() {
     if (this.lastFailedUrl()) {

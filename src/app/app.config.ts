@@ -4,6 +4,7 @@ import {
   Router,
   TitleStrategy,
   withComponentInputBinding,
+  withDebugTracing,
   withNavigationErrorHandler,
 } from '@angular/router';
 
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
         console.error('Navigation Error:', error?.error?.message || error);
         router.navigate(['/error']);
       }),
+      withDebugTracing(),
     ),
     {
       provide: TitleStrategy,

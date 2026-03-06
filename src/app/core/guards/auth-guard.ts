@@ -5,8 +5,6 @@ import {
   CanDeactivateFn,
   CanMatchFn,
   Router,
-  Route,
-  UrlTree,
 } from '@angular/router';
 
 export const authCanActivateGuard: CanActivateFn = (route, state) => {

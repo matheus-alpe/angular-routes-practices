@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DefaultDashboard } from './default-dashboard';
+import DefaultDashboard from './default-dashboard';
 
 describe('DefaultDashboard', () => {
   let component: DefaultDashboard;
@@ -8,9 +8,8 @@ describe('DefaultDashboard', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DefaultDashboard]
-    })
-    .compileComponents();
+      imports: [DefaultDashboard],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DefaultDashboard);
     component = fixture.componentInstance;
