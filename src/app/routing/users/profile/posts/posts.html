@@ -1,0 +1,6 @@
+@for (post of paginatedPosts().posts; track post.id) {
+  <div class="card">
+    <p>{{ post.title }}</p>
+    <p>{{ post.body }}</p>
+  </div>
+}

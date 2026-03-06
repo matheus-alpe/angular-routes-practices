@@ -1,29 +1,18 @@
 import { JsonPipe } from '@angular/common';
-import { Component, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, input } from '@angular/core';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { User } from '../../../core/types/user';
 
 @Component({
   selector: 'app-profile',
-  imports: [JsonPipe],
+  imports: [JsonPipe, RouterOutlet],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export default class Profile {
   readonly route = inject(ActivatedRoute);
   readonly router = inject(Router);
-  private userId = signal<string | null>(null);
-
-  constructor() {
-    this.route.paramMap.subscribe((params) => {
-      console.log('Route parameters changed:', params);
-      const id = params.get('id');
-      this.userId.set(id);
-    });
-  }
-
-  readonly changeUserId = effect(() => {
-    console.log('User ID changed:', this.userId());
-  });
+  readonly user = input.required<User>();
 
   navigateBack() {
     this.router.navigate(['..'], { relativeTo: this.route });
@@ -33,5 +22,9 @@ export default class Profile {
     this.router.navigate(['/users', id], {
       queryParams: { from: this.route.snapshot.params['id'] },
     });
+  }
+
+  navigateToPosts() {
+    this.router.navigate(['posts'], { relativeTo: this.route });
   }
 }

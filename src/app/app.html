@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100 shadow-sm">
   <ul class="menu menu-horizontal bg-base-200">
-    @for (route of routes; track route.path) {
+    @for (route of routes; track $index) {
       <li>
         <a
           [routerLink]="route.path"
@@ -26,4 +26,15 @@
     (detach)="onDetach($event)"
     [routerOutletData]="outletConfig"
   ></router-outlet>
+
+  @if (errorMessage()) {
+    <div class="error-banner">
+      {{ errorMessage() }}
+      <button (click)="retryNavigation()" class="btn btn-error">Retry</button>
+    </div>
+  }
+
+  @if (isNavigating()) {
+    <div class="loading">Loading...</div>
+  }
 </div>

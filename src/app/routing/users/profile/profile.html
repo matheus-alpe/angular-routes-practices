@@ -1,8 +1,9 @@
 <button (click)="navigateBack()" class="btn btn-ghost">Back to Users</button>
 
 <article class="bg-base-200 p-2 rounded-lg">
-  <p>profile {{ route.snapshot.params['id'] }} works!</p>
-  <code>{{ route.snapshot.queryParams | json }}</code>
+  <code>{{ user() | json }}</code>
+  <button (click)="navigateToPosts()" class="btn btn-accent">show posts</button>
+  <router-outlet></router-outlet>
 </article>
 
 <ul>

@@ -1,7 +1,15 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import {
+  RouterLink,
+  RouterOutlet,
+  RouterLinkActive,
+  NavigationError,
+  Router,
+} from '@angular/router';
 import { routes } from './routing/app.routes';
 import { JsonPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 export interface OutletConfig {
   layout: string;
@@ -18,6 +26,31 @@ export class App {
   readonly outletConfig: OutletConfig = {
     layout: 'default',
   };
+  private router = inject(Router);
+  private lastFailedUrl = signal('');
+  private navigationErrors = toSignal(
+    this.router.events.pipe(
+      map((event) => {
+        if (event instanceof NavigationError) {
+          this.lastFailedUrl.set(event.url);
+          if (event.error) {
+            console.error('>> Navigation error', event.error);
+          }
+          return 'Navigation failed. Please try again.';
+        }
+        return '';
+      }),
+    ),
+    { initialValue: '' },
+  );
+  isNavigating = computed(() => !!this.router.currentNavigation());
+  errorMessage = this.navigationErrors;
+
+  retryNavigation() {
+    if (this.lastFailedUrl()) {
+      this.router.navigateByUrl(this.lastFailedUrl());
+    }
+  }
 
   onActivate(event: any) {
     console.log('Activated route:', event);

@@ -21,6 +21,11 @@ export const routes: Routes = [
   ...PRODUCTS_ROUTES,
   ...DASHBOARD_ROUTES,
   {
+    path: 'error',
+    title: 'Error',
+    loadComponent: () => import('./error/error'),
+  },
+  {
     path: 'not-found',
     title: 'Not Found',
     loadComponent: () => import('./not-found/not-found'),

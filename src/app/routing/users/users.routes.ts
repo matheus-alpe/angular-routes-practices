@@ -1,18 +1,34 @@
-import { Routes } from '@angular/router';
-import { authCanActivateGuard } from '../../core/guards/auth-guard';
+import { ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { userResolver } from '../../core/resolvers/user-resolver';
+import { PostService } from '../../core/services/post-service';
+import { inject } from '@angular/core';
 
 export const USERS_ROUTES: Routes = [
   {
     path: 'users',
     title: (route) => `User ${route.params['id']}`,
     loadComponent: () => import('./users'),
-    canActivate: [authCanActivateGuard],
-    data: { requiresAuth: true },
   },
   {
     path: 'users/:id',
     title: (route) => `User ${route.params['id']}`,
     loadComponent: () => import('./profile/profile'),
-    data: { requiresAuth: true },
+    resolve: {
+      user: userResolver,
+    },
+    children: [
+      {
+        path: 'posts',
+        title: 'User Posts',
+        loadComponent: () => import('./profile/posts/posts'),
+        resolve: {
+          paginatedPosts: (route: ActivatedRouteSnapshot) => {
+            const postService = inject(PostService);
+            const user = route.parent?.data['user'];
+            return postService.fetchPostsFromUser(user.id);
+          },
+        },
+      },
+    ],
   },
 ];
