@@ -7,10 +7,11 @@
           routerLinkActive="active-button"
           ariaCurrentWhenActive="page"
           [routerLinkActiveOptions]="{
-            exact: true,
+            queryParams: 'ignored',
+            paths: 'exact',
           }"
         >
-          {{ route.path || 'home' }}
+          {{ typeof route.title === 'function' ? route.path : route.path ? route.title : 'Home' }}
         </a>
       </li>
     }
