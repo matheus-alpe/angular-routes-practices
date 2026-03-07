@@ -1,0 +1,14 @@
+<p class="mb-2">
+  orgId: {{ orgId() }} works!
+
+  <button
+    class="border border-solid border-indigo-500 rounded px-2 py-1"
+    [routerLink]="['./projects', 'project-1']"
+  >
+    Go to project
+  </button>
+</p>
+
+<div class="border border-dashed border-indigo-200 p-4">
+  <router-outlet></router-outlet>
+</div>

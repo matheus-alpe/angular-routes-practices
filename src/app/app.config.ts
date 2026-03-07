@@ -6,6 +6,8 @@ import {
   withComponentInputBinding,
   withDebugTracing,
   withNavigationErrorHandler,
+  withRouterConfig,
+  withViewTransitions,
 } from '@angular/router';
 
 import { routes } from './routing/app.routes';
@@ -16,6 +18,11 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(
       routes,
+      withRouterConfig({
+        onSameUrlNavigation: 'reload',
+        paramsInheritanceStrategy: 'always',
+        defaultQueryParamsHandling: 'merge',
+      }),
       withComponentInputBinding(),
       withNavigationErrorHandler((error) => {
         const router = inject(Router);
@@ -23,6 +30,7 @@ export const appConfig: ApplicationConfig = {
         router.navigate(['/error']);
       }),
       withDebugTracing(),
+      withViewTransitions(),
     ),
     {
       provide: TitleStrategy,

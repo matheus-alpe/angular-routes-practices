@@ -1,0 +1,14 @@
+<p class="mb-2">
+  projectId: {{ projectId() }}
+
+  <button
+    class="border border-solid border-indigo-500 rounded px-2 py-1"
+    [routerLink]="['./customers', 'customer-1']"
+  >
+    Go to customer
+  </button>
+</p>
+
+<div class="border border-dashed border-indigo-400 p-4">
+  <router-outlet></router-outlet>
+</div>

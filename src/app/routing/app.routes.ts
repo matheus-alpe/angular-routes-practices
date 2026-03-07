@@ -3,6 +3,7 @@ import { PRODUCTS_ROUTES } from './products/products.routes';
 import { USERS_ROUTES } from './users/users.routes';
 import { authCanActivateGuard } from '../core/guards/auth-guard';
 import { DASHBOARD_ROUTES } from './dashboard/dashboard.routes';
+import { ORG_ROUTES } from './org/org.routes';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
   ...USERS_ROUTES,
   ...PRODUCTS_ROUTES,
   ...DASHBOARD_ROUTES,
+  ...ORG_ROUTES,
   {
     path: 'error',
     title: 'Error',
